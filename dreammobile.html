@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamMobile - Mobile Specifications</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f2f2f2;
+}
+header{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+.container{
+    padding:20px;
+}
+input{
+    padding:10px;
+    width:100%;
+    margin-bottom:20px;
+}
+.mobile-card{
+    background:white;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:8px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+button{
+    padding:8px 12px;
+    background:black;
+    color:white;
+    border:none;
+    cursor:pointer;
+    margin-top:10px;
+}
+.compare-section{
+    background:white;
+    padding:15px;
+    margin-top:20px;
+    border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>DreamMobile</h1>
+    <p>Search & Compare Mobile Specifications</p>
+</header>
+
+<div class="container">
+
+<input type="text" id="search" placeholder="Search mobile..." onkeyup="searchMobile()">
+
+<div id="mobileList"></div>
+
+<div class="compare-section">
+    <h2>Compare Result</h2>
+    <div id="compareResult"></div>
+</div>
+
+</div>
+
+<script>
+
+const mobiles = [
+    {name:"Samsung Galaxy S24", display:"6.2\"", ram:"8GB", storage:"128GB", camera:"50MP", battery:"4000mAh"},
+    {name:"iPhone 15", display:"6.1\"", ram:"6GB", storage:"128GB", camera:"48MP", battery:"3349mAh"},
+    {name:"Infinix Note 30", display:"6.78\"", ram:"8GB", storage:"256GB", camera:"64MP", battery:"5000mAh"}
+];
+
+function displayMobiles(list){
+    const container = document.getElementById("mobileList");
+    container.innerHTML = "";
+    list.forEach(mobile=>{
+        container.innerHTML += `
+        <div class="mobile-card">
+            <h3>${mobile.name}</h3>
+            <p>Display: ${mobile.display}</p>
+            <p>RAM: ${mobile.ram}</p>
+            <p>Storage: ${mobile.storage}</p>
+            <p>Camera: ${mobile.camera}</p>
+            <p>Battery: ${mobile.battery}</p>
+            <button onclick="compareMobile('${mobile.name}')">Compare</button>
+        </div>
+        `;
+    });
+}
+
+function searchMobile(){
+    const value = document.getElementById("search").value.toLowerCase();
+    const filtered = mobiles.filter(m=>m.name.toLowerCase().includes(value));
+    displayMobiles(filtered);
+}
+
+let compareList = [];
+
+function compareMobile(name){
+    const mobile = mobiles.find(m=>m.name===name);
+    if(compareList.length<2){
+        compareList.push(mobile);
+    }
+    if(compareList.length===2){
+        document.getElementById("compareResult").innerHTML = `
+        <h3>${compareList[0].name} VS ${compareList[1].name}</h3>
+        <p>Display: ${compareList[0].display} | ${compareList[1].display}</p>
+        <p>RAM: ${compareList[0].ram} | ${compareList[1].ram}</p>
+        <p>Storage: ${compareList[0].storage} | ${compareList[1].storage}</p>
+        <p>Camera: ${compareList[0].camera} | ${compareList[1].camera}</p>
+        <p>Battery: ${compareList[0].battery} | ${compareList[1].battery}</p>
+        `;
+        compareList = [];
+    }
+}
+
+displayMobiles(mobiles);
+
+</script>
+
+</body>
+</html><!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <title>Hello, World!</title>
+</head>
+<body>
+  <h1>
+    Hello, World!
+  </h1>
+</body>
+</html>
